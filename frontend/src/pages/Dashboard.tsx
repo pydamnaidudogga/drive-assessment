@@ -43,6 +43,7 @@ const Dashboard: React.FC = () => {
             if (authorized) {
               clearInterval(checkAuth);
               authWindow?.close();
+              setDriveAccess(true)
               resolve(true);
             }
           } catch (error) {
