@@ -1,0 +1,121 @@
+/* GoogleLogin.css */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .login-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .logo-container {
+    margin-bottom: 30px;
+  }
+  
+  .logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .logo-container h1 {
+    margin: 0;
+    color: #202124;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  
+  h2 {
+    color: #202124;
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .subtitle {
+    color: #5f6368;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  
+  .google-login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    background: white;
+    color: #3c4043;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+  }
+  
+  .google-login-button:hover {
+    background: #f8f9fa;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .google-login-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .google-logo {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+  }
+  
+  .error-message {
+    color: #d93025;
+    background-color: #fce8e6;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  
+  .terms {
+    color: #5f6368;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 20px;
+  }
+  
+  .terms a {
+    color: #1a73e8;
+    text-decoration: none;
+  }
+  
+  .terms a:hover {
+    text-decoration: underline;
+  }
+  
+  .spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    border-top-color: #1a73e8;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "commonjs",
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "types": ["node","googleapis"],
+      "emitDecoratorMetadata": true,
+      "strict": true, // Enable strict type-checking options
+    "esModuleInterop": true, // Allow default imports from CommonJS modules
+    "forceConsistentCasingInFileNames": true, // Enforce consistent casing in imports
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "moduleResolution": "node", // Use Node.js module resolution
+    "resolveJsonModule": true, // Allow importing JSON files
+      "experimentalDecorators": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
+  }
