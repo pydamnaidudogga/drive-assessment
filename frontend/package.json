@@ -17,6 +17,7 @@
     "@tiptap/pm": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
+    "axios": "^1.8.4",
     "date-fns": "^4.1.0",
     "firebase": "^11.5.0",
     "react": "^19.0.0",
