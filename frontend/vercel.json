@@ -1,12 +1,5 @@
 {
     "version": 2,
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/index.html"
-      }
-      
-    ],
     "builds": [
       {
         "src": "vite.config.ts",
@@ -18,9 +11,9 @@
     ],
     "routes": [
       {
-        "src": "/assets/(.*)",
+        "src": "/assets/.*",
         "headers": {
-          "cache-control": "public, max-age=31536000, immutable"
+          "Cache-Control": "public, max-age=31536000, immutable"
         }
       },
       {
