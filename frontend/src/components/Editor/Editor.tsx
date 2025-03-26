@@ -15,7 +15,7 @@ interface TextEditorProps {
 }
 
 const TiptapEditor: React.FC<TextEditorProps> = ({ draftId, initialTitle, initialContent }) => {
-    console.log(draftId, initialContent, ' initial content')
+   
   const [title, setTitle] = useState<string>(initialTitle??"");
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isSavingToDrive, setIsSavingToDrive] = useState<boolean>(false);

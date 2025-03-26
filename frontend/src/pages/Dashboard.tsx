@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/authContext';
 import { getDrafts } from '../services/draft';
 import { listDriveFiles } from '../services/driver';
@@ -7,6 +7,7 @@ import {DriveFile} from '../types/drive'
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import './Dashboard.css';
+import api from '../services/api';
 
 const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -14,15 +15,47 @@ const Dashboard: React.FC = () => {
   const [driveFiles, setDriveFiles] = useState<DriveFile[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<'drafts' | 'drive'>('drafts');
+  const [driveAccess, setDriveAccess] = useState(true)
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       await logout();
+      localStorage.removeItem('token');
       navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
+  const handleDriveAuth = useCallback(async (): Promise<boolean> => {
+    try {
+      const { data: { url } } = await api.get('/drive/auth-url');
+      
+      return new Promise((resolve) => {
+        const authWindow = window.open(
+          url,
+          '_blank',
+          'width=600,height=800'
+        );
+
+        const checkAuth = setInterval(async () => {
+          try {
+            const { data: { authorized } } = await api.get('/drive/check-auth');
+            if (authorized) {
+              clearInterval(checkAuth);
+              authWindow?.close();
+              resolve(true);
+            }
+          } catch (error) {
+            clearInterval(checkAuth);
+            resolve(false);
+          }
+        }, 1000);
+      });
+    } catch (error) {
+      console.error('Auth failed:', error);
+      return false;
+    }
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,8 +67,12 @@ const Dashboard: React.FC = () => {
         setDrafts(draftsData as any);
         setDriveFiles(driveData as any[]);
 
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      } catch (error:any) {
+        if(error?.response?.data?.message == 'Google Drive access not configured'){
+        console.log('there is no drive access')
+          setDriveAccess(false)
+        }
+        // console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
@@ -93,7 +130,9 @@ const Dashboard: React.FC = () => {
         {activeTab === 'drafts' ? (
           drafts.length === 0 ? (
             <div className="empty-state">
+              
               <p>No drafts yet. Create your first document!</p>
+              
             </div>
           ) : (
             <div className="cards-grid">
@@ -113,7 +152,10 @@ const Dashboard: React.FC = () => {
         ) : (
           driveFiles?.length === 0 ? (
             <div className="empty-state">
-              <p>No Google Drive files yet. Save a document to Drive first!</p>
+              {driveAccess?
+              <p>No Google Drive files yet. Save a document to Drive first!</p>:
+              <button onClick={()=>handleDriveAuth()}>Drive access</button>
+              }
             </div>
           ) : (
             <div className="cards-grid">
